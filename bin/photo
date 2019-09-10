@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+require 'rubygems'
+require 'commander'
+require 'photo_tools'
+
+# Command Line Interface utility
+class PhotoToolsCLI
+  include Commander::Methods
+  include PhotoTools
+
+  def run
+    program :name, 'photo'
+    program :version, VERSION
+    program :description, 'Photo tools CLI'
+
+    command :sign do |c|
+      c.syntax = 'photo sign [options]'
+      c.summary = 'Sign a photo'
+      c.description = 'Sign a photo'
+      c.example 'Sign and save a photo', 'photo sign --image=./image.jpg --signature=./signature.png --save'
+
+      c.option '--signature STRING', String, 'signature image path'
+      c.option '--image STRING', String, 'image to sign path'
+      c.option '--save', 'save image'
+
+      c.action do |_args, options|
+        signer = Signer.new(signature_image_path: options.signature)
+        signer.load_image_to_sign(image_path: options.image)
+        if options.save
+          signer.sign_and_write
+          puts 'Signed image saved to ./output dir.'
+        else
+          signer.sign_and_display
+        end
+      end
+    end
+
+    run!
+  end
+end
+
+PhotoToolsCLI.new.run
