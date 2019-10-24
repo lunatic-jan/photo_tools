@@ -4,3 +4,7 @@ source 'https://rubygems.org'
 
 # Specify your gem's dependencies in photo_tools.gemspec
 gemspec
+
+group :test do
+  gem 'rake'
+end
