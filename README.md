@@ -1,5 +1,7 @@
 # PhotoTools - under development not published
 
+[![Build Status](https://travis-ci.com/lunatic-jan/photo_tools.svg?branch=develop)](https://travis-ci.com/lunatic-jan/photo_tools)
+
 Utilities for photos. It is uses mini_magick gem thus ImageMagick has to be installed in system.
 
 ## Installation
